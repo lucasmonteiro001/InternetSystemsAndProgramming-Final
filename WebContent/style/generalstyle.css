@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+body {
+    background-color: white;
+}
+h1 {
+    color: navy;
+    margin-left: 20px;
+}
+
+p {
+	align = center;
+	
+}
