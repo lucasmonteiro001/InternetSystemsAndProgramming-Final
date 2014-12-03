@@ -5,7 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <% PageUtilities pg = new PageUtilities(request); %>
-<%=pg.getCurrPage() %>
 <body>
 	<div class="container">
 		<nav class="navbar navbar-default" role="navigation">

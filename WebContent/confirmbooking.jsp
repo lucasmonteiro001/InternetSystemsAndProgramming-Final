@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:if test="${empty shoppingCart}">
-	<% response.sendRedirect("flightsearchquery.jsp"); %>
+	<% response.sendRedirect(response.encodeURL("flightsearchquery.jsp")); %>
 </c:if>
 
 <jsp:include page="WEB-INF/classes/header.jsp"/>
