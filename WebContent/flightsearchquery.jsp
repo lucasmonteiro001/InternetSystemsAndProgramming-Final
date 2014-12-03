@@ -61,7 +61,7 @@
   <div class="modal-dialog" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%)">
     <div class="modal-content">
       <div class="modal-body">
-        Please, wait while we load the results! <img alt="Wait symbol" src="style/wait.gif" style="width: 50px;height: 50px;margin-left: 5%">
+        Please, wait while we load the results or hit <strong>ESC</strong> to redo your search! <img alt="Wait symbol" src="style/wait.gif" style="width: 50px;height: 50px;margin-left: 5%">
       </div>
     </div>
   </div>
@@ -70,10 +70,17 @@
 
 <script>
 $( "form" ).submit(function( event ) {
+	 if ($.trim($("#source").val()) === "" || $.trim($("#destination").val()) === "" || $.trim($("#departure").val()) === "") {
+	        alert('Please, fill all the input fields');
+	    return false;
+	    }
+	
 	$('#myModal').modal({
 		show:true,
 		backdrop: 'static'
 	});
+	
+	$('#myModal').hide(5000);
 });
 
 $.datepicker.setDefaults({
