@@ -73,9 +73,10 @@ public class FlightSearchQuery extends HttpServlet {
 				session.setAttribute("flights", flights);
 				
 			}
-
+			String originalURL = "WEB-INF/flightsearchresult.jsp";
+			String encodedURL = response.encodeURL(originalURL);
 			RequestDispatcher rd = request
-					.getRequestDispatcher("WEB-INF/flightsearchresult.jsp");
+					.getRequestDispatcher(encodedURL);
 			rd.forward(request, response);
 		}
 

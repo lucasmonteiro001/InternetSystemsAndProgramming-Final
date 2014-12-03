@@ -68,7 +68,9 @@ public class Login extends HttpServlet {
 				if (hashed.equals(users.getUser().getPassword())) {
 					usr = users.getUser();
 					session.setAttribute("user", usr);
-					response.sendRedirect("flightsearchquery.jsp");
+					String originalURL = "flightsearchquery.jsp";
+					String encodedURL = response.encodeURL(originalURL);
+					response.sendRedirect(encodedURL);
 				}
 				else {
 					session.setAttribute("status", "Wrong username or password.");

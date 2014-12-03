@@ -51,7 +51,7 @@
 			<tr>
 				<td><b>Total</b></td>
 				<td><b><%=aggregateCostFormatted%></b></td>
-				<td><a href="confirmbooking.jsp"><input type="button"
+				<td><a href='<c:url value="confirmbooking.jsp"></c:url>'><input type="button"
 						class="btn btn-primary btn-sm" name="send"
 						value="Proceed to Checkout" align="right"></a></td>
 			</tr>

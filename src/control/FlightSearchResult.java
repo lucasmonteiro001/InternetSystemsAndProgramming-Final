@@ -50,9 +50,11 @@ public class FlightSearchResult extends HttpServlet {
 		Flight flight = getChoosenFlight(request);
 		session.setAttribute("flightChoosen", flight.getId());
 		session.setAttribute("flightBean", flight);
-
+		
+		String originalURL = "WEB-INF/reviewandbook.jsp";
+		String encodedURL = response.encodeURL(originalURL);
 		RequestDispatcher rd = request
-				.getRequestDispatcher("WEB-INF/reviewandbook.jsp");
+				.getRequestDispatcher(encodedURL);
 		rd.forward(request, response);
 
 	}

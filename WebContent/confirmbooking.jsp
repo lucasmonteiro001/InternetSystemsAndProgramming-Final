@@ -69,7 +69,7 @@
 
 <div class="well well-sm span4 form-pass-details" style="display:none">
     <h5>Please provide the passenger details: </h5>
-	<form class="form-horizontal form-group-sm" role="form" name="input" action="FlightSearchQuery" method="post" id="input">
+	<form class="form-horizontal form-group-sm" role="form" name="input" action='<c:url value="FlightSearchQuery"></c:url>' method="post" id="input">
 		<div class="form-group">
 	  		<label class="col-sm-2 control-label" for="passengerName">Name</label>
 			<div class="col-sm-10">
@@ -122,7 +122,7 @@
 		
 		var jsonData = JSON.stringify(jsonDataObject);
 		
-		$.ajax({ url : "/Team15-HW3-Banking/Bank1",
+		$.ajax({ url : "/Team15-HW3-Banking/Bank1;jsessionid=<%=session.getId()%>",
 			type : "GET",
 			data : {action:"export",json:jsonData},
 			contentType: 'application/json',
@@ -154,7 +154,7 @@
 	
 	function update_history_function(jsonData) {
 
-		$.ajax({ url : "UpdateBookingHistory",
+		$.ajax({ url : "UpdateBookingHistory;jsessionid=<%=session.getId()%>",
 			type : "GET",
 			data : {action:"export",json:jsonData},
 			contentType: 'application/json',

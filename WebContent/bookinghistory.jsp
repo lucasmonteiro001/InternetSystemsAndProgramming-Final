@@ -19,7 +19,7 @@ $(document).ready(function () {
         paging: true, //Enable paging
         pageSize: 10, //Set page size (default: 10)  
         actions: {
-            listAction:   'BookingHistory?action=bookingHistoryList'
+            listAction:   '<c:url value="BookingHistory?action=bookingHistoryList"></c:url>'
         },
         fields: {
             flight_id: {

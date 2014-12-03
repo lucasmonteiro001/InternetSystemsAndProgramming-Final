@@ -24,7 +24,7 @@
 
 <div class="well well-sm span4">
     <h4>Details of your travel: </h4>
-	<form class="form-horizontal form-group-sm" role="form" name="input" action="FlightSearchQuery" method="post" id="input">
+	<form class="form-horizontal form-group-sm" role="form" name="input" action='<c:url value="FlightSearchQuery"></c:url>' method="post" id="input">
 		<div class="form-group">
   			<label class="col-sm-2 control-label" for="source">From</label>
   			<select name="source" form="input" id="source" required>

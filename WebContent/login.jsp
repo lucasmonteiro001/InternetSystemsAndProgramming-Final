@@ -1,10 +1,11 @@
-<jsp:include page="WEB-INF/classes/header.jsp" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<jsp:include page="WEB-INF/classes/header.jsp" />
 
 <h3>Log in here</h3>
 <div class="well well-sm span4">
 	<form class="form-horizontal form-group-sm" role="form" name="input"
-		action="Login" method="post">
+		action='<c:url value="Login"></c:url>' method="post">
 		<div class="form-group">
 			<%
 				if (session.getAttribute("status") != null) {

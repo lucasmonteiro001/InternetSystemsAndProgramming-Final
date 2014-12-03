@@ -3,7 +3,7 @@
 
 <jsp:include page="../WEB-INF/classes/header.jsp" />
 
-<form class="form-horizontal" role="form" name="input" action="ReviewAndBook">
+<form class="form-horizontal" role="form" name="input" action="<c:url value='ReviewAndBook'></c:url>" >
 	
 	<h3>You have chosen this flight</h3>
 	
@@ -75,7 +75,7 @@
 
 		
 		$.ajax({
-			url : "ReviewAndBook",
+			url : "<c:url value="ReviewAndBook"></c:url>",
 			type : "GET",
 			data : {action:"export",json:jsonData},
 			contentType: 'application/json',

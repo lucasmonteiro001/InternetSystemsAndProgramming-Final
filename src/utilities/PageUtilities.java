@@ -28,8 +28,8 @@ public class PageUtilities {
 		String curUrl = request.getRequestURL() + "";
 		String[] str = curUrl.split("/");
 		String currPage = str[str.length - 1];
-
-		return currPage;
+		String[] str2 = currPage.split(";"); // needed to work with url rewriting
+		return str2[0];
 	}
 
 	Map<String, String> setSystemPages() {
