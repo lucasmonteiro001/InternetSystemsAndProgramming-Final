@@ -1,37 +1,14 @@
-<%
-	if (session.getAttribute("shoppingCart") == null) {
-		response.sendRedirect("flightsearchquery.jsp");
-	} else {
-		ArrayList<Book> b = (ArrayList<Book>)session.getAttribute("shoppingCart");
-		if (b.size() == 0)
-			response.sendRedirect("flightsearchquery.jsp");
-	}
-%>
-
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.util.Locale"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="model.Flight"%>
-<%@page import="model.Book"%>
+<c:if test="${empty shoppingCart}">
+	<% response.sendRedirect("flightsearchquery.jsp"); %>
+</c:if>
 
 <jsp:include page="WEB-INF/classes/header.jsp"/>
 
-<form class="form-horizontal" role="form" name="input" action="Transaction">
-<jsp:useBean id="flightBean" class="model.Flight" scope="session" />
 <h3>Confirmation</h3>
 <div class="well well-sm span4">
-
-	<%
-		double aggregateCost = 0;
-		String aggregateCostFormatted = "Empty Shopping Cart. (0.00)";
-		ArrayList<Book> fs = (ArrayList<Book>) session
-				.getAttribute("shoppingCart");
-		if (fs != null) {
-	%>
-
 	<table class="table table-hover" style="background-color:white">
+		<c:if test="${not empty shoppingCart}">
 			<thead>
 				<tr>
 					<th> Date of Booking</th> 
@@ -40,53 +17,47 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:forEach var="booking" items="${shoppingCart}">
+					<tr>
+						<td><c:out value="${booking.dateOfBooking}"/></td>
+						<td><c:out value="${booking.flightIds}"/></td>
+						<td><c:out value="${booking.totalCost}"/></td>
+					</tr>
+				</c:forEach>
 				<tr>
-			<%
-				Iterator<Book> it = fs.iterator();
-				while (it.hasNext()) {
-					Book book = (Book) it.next();
-			%>
-			<tr>
-				<td><%=book.getDateOfBooking() %></td>
-				<td><%=book.getFlightIds()%></td>
-				<td><%=book.getTotalCost()%></td>
-			</tr>
-			<%
-				aggregateCost += book.getTotalCost();
-						NumberFormat numberFormatter = NumberFormat
-								.getNumberInstance(new Locale("en_US"));
-						aggregateCostFormatted = numberFormatter
-								.format(aggregateCost);
-					}
-			%>
-			<% } else { %>
-			Your shopping cart is empty.
-			<% } %>
+					<td></td>
+					<td></td>
+					<td><strong>${totalCost}</strong></td>
+				</tr>
+			</c:if>
+			<c:if test="${empty shoppingCart}">
+				Your shopping cart is empty.
+			</c:if>
 			</tbody>
 		</table><br>
 </div>
 
 <div class="acct-info">
 	<h3>Account information</h3>
-	<div class="well well-sm span4">
-				<div class="form-group"><div class="col-sm-7 error" style="color:red;display: block;"></div></div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="accountHolderId">Account holder id</label>
-					<div class="col-sm-2">
-						<input type="textfield" class="form-group" id="accountHolderId" placeholder="Account holder id" name="accountHolderId">
-					</div>
+	<form class="form-horizontal" role="form" name="input">
+		<div class="well well-sm span4">
+			<div class="col-sm-7 error" style="color:red;width:100%"><br></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="accountHolderId">Account holder id</label>
+				<div class="col-sm-2">
+					<input type="textfield" class="form-group" id="accountHolderId" placeholder="Account holder id" name="accountHolderId">
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="routNumber">Routing number</label>
-					<div class="col-sm-10">
-						<input type="textfield" class="form-group" id="accountRoutingNumber" placeholder="Routing number" name="accountRoutingNumber" data-mask="0000000000">
-					</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="routNumber">Routing number</label>
+				<div class="col-sm-10">
+					<input type="textfield" class="form-group" id="accountRoutingNumber" placeholder="Routing number" name="accountRoutingNumber" data-mask="0000000000">
 				</div>
-	
-				<input class="col-sm-offset-2 btn btn-primary btn-sm" type="submit" value="Submit">
-			</form>	
-	</div>
-</div>
+			</div>
+			<input class="col-sm-offset-2 btn btn-primary btn-sm" type="submit" value="Submit">
+		</div>
+	</form>
+</div>	
 
 <div class="trans-conf"  style="display:none">
 	<div class="alert alert-success alert-dismissible" role="alert"> 
@@ -99,21 +70,18 @@
 <div class="well well-sm span4 form-pass-details" style="display:none">
     <h5>Please provide the passenger details: </h5>
 	<form class="form-horizontal form-group-sm" role="form" name="input" action="FlightSearchQuery" method="post" id="input">
-		
 		<div class="form-group">
-  		<label class="col-sm-2 control-label" for="passengerName">Name</label>
-  			<div class="col-sm-10">
-  				<input type="text" class="form-group" id="passengerName" name="passengerName" required>
-  			</div>
+	  		<label class="col-sm-2 control-label" for="passengerName">Name</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-group" id="passengerName" name="passengerName" required>
+			</div>
 		</div>
-		
 		<div class="form-group">
-  		<label class="col-sm-2 control-label" for="age">Age</label>
+  			<label class="col-sm-2 control-label" for="age">Age</label>
   			<div class="col-sm-10">
   				<input type="number" class="form-group" id="age" name="age" min=0 max=115 required>
   			</div>
 		</div>
-		
 		<div class="form-group">
   			<label class="col-sm-2 control-label" for="sex">Sex</label>
   			<div class="col-sm-10">
@@ -137,11 +105,11 @@
 <script>
 
 	 $("form").submit(function (event) {
-		confirm_function();
+		confirm_function(event);
 		event.preventDefault();
 	});
 	
-	function confirm_function() {
+	function confirm_function(event) {
 		
 		var accountHolderId 		= $("#accountHolderId").val();
 		var accountRoutingNumber 	= $("#accountRoutingNumber").val();
