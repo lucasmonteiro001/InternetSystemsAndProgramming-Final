@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import utilities.CharacterEscapingHelper;
 import model.Flight;
 
 /**
@@ -71,10 +72,12 @@ public class FlightSearchResult extends HttpServlet {
 				.getAttribute("flights");
 		@SuppressWarnings("rawtypes")
 		Iterator it = flights.iterator();
+		
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 
 		while (it.hasNext()) {
 			Flight tempFlight = (Flight) it.next();
-			if (Integer.parseInt(request.getParameter("choosenFlight")) == tempFlight.getId()) {
+			if (Integer.parseInt(csh.forHTML(request.getParameter("choosenFlight"))) == tempFlight.getId()) {
 				return tempFlight;
 			}
 		}

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utilities.CharacterEscapingHelper;
 import model.User;
 /**
  * In this class the server will receive the attempt to registrate a user and will process it. 
@@ -43,9 +44,11 @@ public class Registration extends HttpServlet {
 			throws ServletException, IOException {
 
 		Users us = new Users();
+		
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 
-		user = new User(request.getParameter("email").toString(),
-				request.getParameter("password").toString(), new Date(request.getParameter("dateOfBirth").toString()));
+		user = new User(csh.forHTML(request.getParameter("email").toString()),
+				csh.forHTML(request.getParameter("password").toString()), new Date(csh.forHTML(request.getParameter("dateOfBirth").toString())));
 
 		if (us.createUser(user) == true) {
 

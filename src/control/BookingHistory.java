@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.BookingHistoryModel;
 import model.User;
 import utilities.BookingHistoryDAO;
+import utilities.CharacterEscapingHelper;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -46,10 +47,12 @@ public class BookingHistory extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 
 		if (request.getParameter("action") != null) {
 
-			String action = (String) request.getParameter("action");
+			String action = csh.forHTML((String) request.getParameter("action"));
 
 			HttpSession session = request.getSession();
 
@@ -60,8 +63,8 @@ public class BookingHistory extends HttpServlet {
 			switch (action) {
 			case "bookingHistoryList":
 				try {
-					int startPageIndex		= Integer.parseInt(request.getParameter("jtStartIndex"));
-					int numRecordsPerPage	= Integer.parseInt(request.getParameter("jtPageSize"));
+					int startPageIndex		= Integer.parseInt(csh.forHTML(request.getParameter("jtStartIndex")));
+					int numRecordsPerPage	= Integer.parseInt(csh.forHTML(request.getParameter("jtPageSize")));
 					       
 					ArrayList<BookingHistoryModel> all = dao .getBookingHistory(user, startPageIndex, numRecordsPerPage);
 					

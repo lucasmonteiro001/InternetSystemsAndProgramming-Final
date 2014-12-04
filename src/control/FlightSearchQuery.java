@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Flight;
+import utilities.CharacterEscapingHelper;
 import utilities.FlightSearchDAO;
 
 /**
@@ -46,9 +47,11 @@ public class FlightSearchQuery extends HttpServlet {
 		// Just can work if a session is there
 		HttpSession session = request.getSession();
 		
-		String source 		= request.getParameter("source");
-		String destination 	= request.getParameter("destination");
-		String departure 	= request.getParameter("departure");
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
+		
+		String source 		= csh.forHTML(request.getParameter("source"));
+		String destination 	= csh.forHTML(request.getParameter("destination"));
+		String departure 	= csh.forHTML(request.getParameter("departure"));
 
 		ArrayList<Flight> flights = null;
 		

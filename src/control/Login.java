@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import utilities.CharacterEscapingHelper;
 import model.User;
 
 /**
@@ -57,11 +58,13 @@ public class Login extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
+		
 		Users users = new Users();
 		User usr = new User();
 		
-		usr.setEmail((String) request.getParameter(EMAIL_PARAMETER));
-		usr.setPassword((String) request.getParameter(PASSWORD_PARAMETER));
+		usr.setEmail(csh.forHTML((String) request.getParameter(EMAIL_PARAMETER)));
+		usr.setPassword(csh.forHTML((String) request.getParameter(PASSWORD_PARAMETER)));
 		
 		if (users.userExists(usr) == true) {
 			String hashed = "" + usr.getPassword().hashCode();

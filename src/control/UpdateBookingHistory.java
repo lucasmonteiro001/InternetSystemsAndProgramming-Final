@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import utilities.AccountDAO;
 import utilities.BookingDAO;
+import utilities.CharacterEscapingHelper;
 import utilities.JsonHelper;
 
 /**
@@ -40,6 +41,8 @@ public class UpdateBookingHistory extends HttpServlet {
 		
 		response.setContentType("application/json");
 		
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
+		
 		HttpSession session 	= request.getSession();
 		User user 				= (User) session.getAttribute("user");
 		
@@ -49,7 +52,7 @@ public class UpdateBookingHistory extends HttpServlet {
 		AccountDAO accountDao 	= new AccountDAO();
 		
 		try {
-			String json 	= request.getParameter("json");
+			String json 	= csh.forHTML(request.getParameter("json"));
 			JSONObject jObj = new JSONObject(json);
 			
 			int hId 	= Integer.parseInt(jObj.get("accountHolderId").toString());

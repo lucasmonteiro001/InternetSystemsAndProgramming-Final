@@ -23,6 +23,7 @@ import model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import utilities.CharacterEscapingHelper;
 import utilities.JsonHelper;
 
 /**
@@ -55,6 +56,8 @@ public class ReviewAndBook extends HttpServlet {
 	protected void doGet (HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException{
 		
+		CharacterEscapingHelper csh = new CharacterEscapingHelper();
+		
 		response.setContentType("application/json");
 		JsonHelper js 		= new JsonHelper();
 		session 			= request.getSession();
@@ -63,7 +66,7 @@ public class ReviewAndBook extends HttpServlet {
 		double totalCost 	= 0;
 		double cost			= 0;
 		shoppingCart = new ArrayList <Book> ();
-		String json 		= request.getParameter("json");
+		String json 		= csh.forHTML(request.getParameter("json"));
 		JSONObject jObj;
 		String return_msg = "";
 		try {
