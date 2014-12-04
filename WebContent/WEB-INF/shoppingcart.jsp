@@ -1,10 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="model.Flight"%>
-<%@page import="model.Book"%>
-<%@page import="java.text.NumberFormat"%>
-<%@page import="java.util.Locale"%>
 
 <jsp:include page="../WEB-INF/classes/header.jsp" />
 
@@ -15,52 +9,35 @@
 	<br> <br>
 	<p style="disply: block">Flights you have chosen.</p>
 
-	<%
-		double aggregateCost = 0;
-		String aggregateCostFormatted = "Empty Shopping Cart. (0.00)";
-		ArrayList<Book> fs = (ArrayList<Book>) session
-				.getAttribute("shoppingCart");
-		if (fs != null) {
-	%>
 	<table class="table table-hover" style="background-color: white">
-		<thead>
-			<tr>
-				<th>Flight</th>
-				<th>Seats</th>
-				<th>Costs</th>
-			</tr>
-
-			<%
-				Iterator<Book> it = fs.iterator();
-					while (it.hasNext()) {
-						Book book = (Book) it.next();
-			%>
-			<tr>
-				<td><%=book.getFlightIds()%></td>
-				<td><%=book.getNumberOfSeats()%></td>
-				<td><%=book.getTotalCost()%></td>
-			</tr>
-			<%
-				aggregateCost += book.getTotalCost();
-						NumberFormat numberFormatter = NumberFormat
-								.getNumberInstance(new Locale("en_US"));
-						aggregateCostFormatted = numberFormatter
-								.format(aggregateCost);
-					}
-			%>
-			<tr>
-				<td><b>Total</b></td>
-				<td><b><%=aggregateCostFormatted%></b></td>
-				<td><a href='<c:url value="confirmbooking.jsp"></c:url>'><input type="button"
-						class="btn btn-primary btn-sm" name="send"
-						value="Proceed to Checkout" align="right"></a></td>
-			</tr>
-			<%
-				} else {
-			%>
+		<c:if test="${not empty shoppingCart}">
+			<thead>
+				<tr>
+					<th>Flight</th>
+					<th>Seats</th>
+					<th>Costs</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="booking" items="${shoppingCart}">
+					<tr>
+						<td><c:out value="${booking.flightIds}"/></td>
+						<td><c:out value="${booking.numberOfSeats}"/></td>
+						<td><c:out value="${booking.totalCost}"/></td>
+					</tr>
+				</c:forEach>
+				<tr>
+					<td><b>Total</b></td>
+					<td><b><c:out value="${totalCost}"/></b></td>
+					<td><a href='<c:url value="confirmbooking.jsp"></c:url>'><input type="button"
+							class="btn btn-primary btn-sm" name="send"
+							value="Proceed to Checkout" align="right"></a></td>
+				</tr>
+		</tbody>
+		</c:if>
+		<c:if test="${empty shoppingCart}">
 			Your shopping cart is empty.
-			<%
-				}
-			%>
-
-			<jsp:include page="../WEB-INF/classes/bottom.jsp" />
+		</c:if>
+		</table>
+</div>
+<jsp:include page="../WEB-INF/classes/bottom.jsp" />

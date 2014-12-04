@@ -27,12 +27,12 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td><strong>${totalCost}</strong></td>
+					<td><strong><c:out value="${totalCost}"/></strong></td>
 				</tr>
-			</c:if>
-			<c:if test="${empty shoppingCart}">
-				Your shopping cart is empty.
-			</c:if>
+		</c:if>
+		<c:if test="${empty shoppingCart}">
+			Your shopping cart is empty.
+		</c:if>
 			</tbody>
 		</table><br>
 </div>
@@ -113,7 +113,7 @@
 		
 		var accountHolderId 		= $("#accountHolderId").val();
 		var accountRoutingNumber 	= $("#accountRoutingNumber").val();
-		var totalCost				= "" + <%=session.getAttribute("totalCost")%>;
+		var totalCost				= "" + ${totalCost};
 			
 		var jsonDataObject = new Object();
 		jsonDataObject.accountHolderId 		= accountHolderId;
@@ -122,7 +122,10 @@
 		
 		var jsonData = JSON.stringify(jsonDataObject);
 		
-		$.ajax({ url : "/Team15-HW3-Banking/Bank1;jsessionid=<%=session.getId()%>",
+		var toUrl = "/Team15-HW3-Banking/Bank1;jsessionid=";
+		var toBank = toUrl.concat('${pageContext.session.id}');
+		
+		$.ajax({ url : toBank,
 			type : "GET",
 			data : {action:"export",json:jsonData},
 			contentType: 'application/json',
@@ -153,8 +156,11 @@
 	};
 	
 	function update_history_function(jsonData) {
+		
+		var toUrl = "UpdateBookingHistory;jsessionid=";
+		var toHistory= toUrl.concat('${pageContext.session.id}');
 
-		$.ajax({ url : "UpdateBookingHistory;jsessionid=<%=session.getId()%>",
+		$.ajax({ url : toHistory,
 			type : "GET",
 			data : {action:"export",json:jsonData},
 			contentType: 'application/json',

@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:useBean id="flightBean" class="model.Flight" scope="session" />
 
 <jsp:include page="../WEB-INF/classes/header.jsp" />
 
@@ -17,7 +16,6 @@
 		<table class="table table-hover" style="background-color: white">
 			<thead>
 				<tr>
-					<th>Date</th>
 					<th>From</th>
 					<th>To</th>
 					<th>Flight Number</th>
@@ -31,12 +29,11 @@
 			<tbody>
 				<tr>
 				<tr>
-					<td><jsp:getProperty property="departure" name="flightBean"/></td>
-					<td><jsp:getProperty property="source" name="flightBean" /></td>
-					<td><jsp:getProperty property="destination" name="flightBean" /></td>
-					<td><jsp:getProperty property="id" name="flightBean" /></td>
-					<td><jsp:getProperty property="departure" name="flightBean" /></td>
-					<td><jsp:getProperty property="arrival" name="flightBean" /></td>
+					<td><c:out value="${flightBean.source}"/></td>
+					<td><c:out value="${flightBean.destination}"/></td>
+					<td><c:out value="${flightBean.id}"/></td>
+					<td><c:out value="${flightBean.departure}"/></td>
+					<td><c:out value="${flightBean.arrival}"/></td>
 					<td>1</td>
 					<td><select class="form-group" id="class" name="class">
 							<option value="economy">Economy</option>

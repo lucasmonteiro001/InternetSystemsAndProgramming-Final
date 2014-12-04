@@ -27,14 +27,14 @@
 				<tbody>
 					<c:forEach var="flightBean" items="${requestScope['flights']}">
 						<tr>
-							<td><input type="radio" id="${flightBean.id}"
-								name="choosenFlight" value="${flightBean.id}" required></td>
-							<td><c:out value="${flightBean.departure}" /></td>
-							<td><c:out value="${flightBean.source}" /></td>
-							<td><c:out value="${flightBean.destination}" /></td>
-							<td><c:out value="${flightBean.id}" /></td>
-							<td><c:out value="${flightBean.departure}" /></td>
-							<td><c:out value="${flightBean.arrival}" /></td>
+							<td><input type="radio" id="<c:out value="${flightBean.id}"/>"
+								name="choosenFlight" value="<c:out value="${flightBean.id}"/>" required></td>
+							<td><c:out value="${flightBean.departure}"/></td>
+							<td><c:out value="${flightBean.source}"/></td>
+							<td><c:out value="${flightBean.destination}"/></td>
+							<td><c:out value="${flightBean.id}"/></td>
+							<td><c:out value="${flightBean.departure}"/></td>
+							<td><c:out value="${flightBean.arrival}"/></td>
 							<td>1</td>
 						</tr>
 					</c:forEach>
