@@ -2,14 +2,14 @@ package model;
 
 public class Client {
 	private User user;
-	private Client client;
+	private Organization organization;
 	public Client() {
 		super();
 	}
-	public Client(User user, Client client) {
+	public Client(User user, Organization organization) {
 		super();
 		this.user = user;
-		this.client = client;
+		this.organization = organization;
 	}
 	public User getUser() {
 		return user;
@@ -17,11 +17,11 @@ public class Client {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Client getClient() {
-		return client;
+	public Organization getOrganization() {
+		return organization;
 	}
-	public void setClient(Client client) {
-		this.client = client;
+	public void setClient(Organization organization) {
+		this.organization = organization;
 	}
 	
 	

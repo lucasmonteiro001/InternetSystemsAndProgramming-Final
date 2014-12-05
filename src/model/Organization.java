@@ -1,6 +1,7 @@
 package model;
 
 public class Organization {
+	private int id;
 	private String name;
 	private String address;
 	public String getName() {
@@ -22,6 +23,10 @@ public class Organization {
 		super();
 		this.name = name;
 		this.address = address;
+	}
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 	
 }
