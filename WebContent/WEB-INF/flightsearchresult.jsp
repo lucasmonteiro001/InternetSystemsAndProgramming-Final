@@ -29,12 +29,10 @@
 						<tr>
 							<td><input type="radio" id="<c:out value="${flightBean.id}"/>"
 								name="choosenFlight" value="<c:out value="${flightBean.id}"/>" required></td>
-							<td><c:out value="${flightBean.departure}"/></td>
-							<td><c:out value="${flightBean.source}"/></td>
-							<td><c:out value="${flightBean.destination}"/></td>
-							<td><c:out value="${flightBean.id}"/></td>
-							<td><c:out value="${flightBean.departure}"/></td>
-							<td><c:out value="${flightBean.arrival}"/></td>
+							<c:set var="flightInfo" value="${flightBean.departure},${flightBean.source},${flightBean.destination},${flightBean.id},${flightBean.departure},${flightBean.arrival}" />
+							<c:forTokens items="${flightInfo}" delims="," var="flightSingleInfo">
+								<td><c:out value="${flightSingleInfo}"/></td>
+							</c:forTokens>
 							<td>1</td>
 						</tr>
 					</c:forEach>
