@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Organization;
-import model.User;
 
 public class OrganizationDAO {
 
@@ -43,7 +42,8 @@ public class OrganizationDAO {
 						param);
 		try {
 			if (rs1 != null && rs1.next()) {
-				Organization returnOrganization = new Organization (); 
+				Organization returnOrganization = new Organization ();
+				returnOrganization.setId (rs1.getInt("id"));
 				returnOrganization.setName(rs1.getString("name"));
 				returnOrganization.setAddress(rs1.getString("address"));
 				

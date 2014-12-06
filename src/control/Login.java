@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
 		
 		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 		
-		Users users = new Users();
+		Clients users = new Clients();
 		User usr = new User();
 		
 		usr.setEmail(csh.forHTML((String) request.getParameter(EMAIL_PARAMETER)));

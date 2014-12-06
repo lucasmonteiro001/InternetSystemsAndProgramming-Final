@@ -25,11 +25,12 @@ public class ClientDAO {
 	public void addClient (Client client) {
 		JDBCHelper jdbc = new JDBCHelper();
 		ArrayList<Object> param = new ArrayList<Object>();
-		param.add(client.getUser().getId());
-		param.add(client.getOrganization().getId());
+
 		try {
-			uDao.addUser(client.getUser());
-			oDao.addOrganization (client.getOrganization());
+			client.setUser(uDao.readUser(client.getUser()));
+			client.setOrganization(oDao.readOrganization(client.getOrganization()));
+			param.add(client.getUser().getId());
+			param.add(client.getOrganization().getId());
 			jdbc.insertDB(
 					"INSERT INTO client (userId, organizationId) VALUES (?, ?);",
 					param);

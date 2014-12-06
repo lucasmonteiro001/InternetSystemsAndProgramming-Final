@@ -33,8 +33,21 @@
 			</div>
 			<span id="confirmMessage" class="confirmMessage col-md-5 control-label"></span> 
 		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="organizationname">Organization Name:</label>	
+			<div class="col-sm-10">
+				<input type="organizationName" class="form-group" id="organizationName" placeholder="OrganizationName" name="organizationName">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="organizationaddress">Organization Address:</label>	
+			<div class="col-sm-10">
+				<input type="organizationAddress" class="form-group" id="organizationaddress" placeholder="OrganizationAddress" name="organizationAddress">
+			</div>
+		</div>
 		<input class="col-sm-offset-1 btn btn-primary btn-sm" type="submit" value="Submit">
-		<input type="button" class="btn btn-danger btn-sm" value="Cancel" onclick="window.location='login.jsp';" >	
+		<input type="button" class="btn btn-danger btn-sm" value="Cancel" onclick="window.location='login.jsp';" >
+			
 	</form>
 </div>
 	

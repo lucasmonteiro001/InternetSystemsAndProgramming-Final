@@ -28,5 +28,9 @@ public class Organization {
 		// TODO Auto-generated method stub
 		return id;
 	}
+	public void setId(int id) {
+		this.id = id;
+		
+	}
 	
 }

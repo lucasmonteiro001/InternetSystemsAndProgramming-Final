@@ -20,7 +20,7 @@ public class Client {
 	public Organization getOrganization() {
 		return organization;
 	}
-	public void setClient(Organization organization) {
+	public void setOrganization(Organization organization) {
 		this.organization = organization;
 	}
 	

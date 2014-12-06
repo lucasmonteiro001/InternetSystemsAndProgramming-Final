@@ -1,6 +1,10 @@
 package control;
 
+import model.Client;
+import model.Organization;
 import model.User;
+import utilities.ClientDAO;
+import utilities.OrganizationDAO;
 import utilities.UserDAO;
 /**
  * 
@@ -8,15 +12,18 @@ import utilities.UserDAO;
  * @author Lucas
  * 
  */
-public class Users {
-
+public class Clients {
+	private Client client;
+	private Organization address;
 	private User user;
 	private UserDAO userDataAccessObject = null;
-
-	public Users() {
-
+	private OrganizationDAO organizationDataAccessObject = null;
+	private ClientDAO clientDAO = null;
+	public Clients() {
 		user = new User();
 		userDataAccessObject = new UserDAO();
+		organizationDataAccessObject = new OrganizationDAO();
+		clientDAO = new ClientDAO ();
 	}
 
 	/**
@@ -38,6 +45,23 @@ public class Users {
 
 			return true;
 
+		} else {
+
+			return false;
+		}
+	}
+	public boolean createClient (Client client) {
+		if (createUser (client.getUser()) && createOrganization (client.getOrganization()) ) {
+			clientDAO.addClient(client);
+			return true;
+		}	
+		return false;	
+	}
+	public boolean createOrganization(Organization organization) {
+		organizationDataAccessObject = new OrganizationDAO();
+		if (organizationDataAccessObject.readOrganization(organization) == null) {
+			organizationDataAccessObject.addOrganization(organization);
+			return true;
 		} else {
 
 			return false;

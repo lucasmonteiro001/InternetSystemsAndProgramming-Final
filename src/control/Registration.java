@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utilities.CharacterEscapingHelper;
+import model.Client;
+import model.Organization;
 import model.User;
 /**
  * In this class the server will receive the attempt to registrate a user and will process it. 
@@ -25,6 +27,9 @@ public class Registration extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private User user;
+	private Organization organization;
+	private Client client;
+	
 	/**
 	 * This doGet is "just in cause". Will not be used in this application. Call doPost.
 	 * @param request HttpServletRequest
@@ -43,19 +48,20 @@ public class Registration extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Users us = new Users();
+		Clients us = new Clients();
 		
 		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 
 		user = new User(csh.forHTML(request.getParameter("email").toString()),
 				csh.forHTML(request.getParameter("password").toString()), new Date(csh.forHTML(request.getParameter("dateOfBirth").toString())));
-
-		if (us.createUser(user) == true) {
-
+		organization = new Organization (csh.forHTML(request.getParameter("organizationName")).toString(),
+						csh.forHTML(request.getParameter("organizationAddress").toString()));
+		client = new Client (user, organization);
+		
+		if (us.createClient(client) == true) {
 			response.sendRedirect("login.jsp");
 
 		} else {
-
 			response.sendRedirect("login.jsp");
 		}
 
