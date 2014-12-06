@@ -20,9 +20,11 @@ public class OrganizationDAO {
 		param.add(organization.getAddress());
 
 		try {
-			jdbc.insertDB(
-					"INSERT INTO organization (name, address) VALUES (?, ?);",
-					param);
+			if (readOrganization(organization) == null) { //To prevent multiple instances of same organization
+				jdbc.insertDB(
+						"INSERT INTO organization (name, address) VALUES (?, ?);",
+						param);
+			}
 
 			jdbc.conn.close();
 		} catch (SQLException e) {
