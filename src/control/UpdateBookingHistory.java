@@ -1,5 +1,6 @@
 package control;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,12 +13,8 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Book;
 import model.User;
-
-import org.json.JSONObject;
-
 import utilities.AccountDAO;
 import utilities.BookingDAO;
-import utilities.CharacterEscapingHelper;
 import utilities.JsonHelper;
 
 /**
@@ -34,14 +31,13 @@ public class UpdateBookingHistory extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+response.setContentType("application/json");
 		
-		response.setContentType("application/json");
-		
-		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 		
 		HttpSession session 	= request.getSession();
 		User user 				= (User) session.getAttribute("user");
@@ -52,14 +48,24 @@ public class UpdateBookingHistory extends HttpServlet {
 		AccountDAO accountDao 	= new AccountDAO();
 		
 		try {
-			String json 	= csh.forHTML(request.getParameter("json"));
-			JSONObject jObj = new JSONObject(json);
-			
-			int hId 	= Integer.parseInt(jObj.get("accountHolderId").toString());
-			int rNum 	= Integer.parseInt(jObj.get("accountRoutingNumber").toString());
-
-			account.setHolderId(hId);
-			account.setRoutingNumber(rNum);
+			StringBuilder sb = new StringBuilder();
+		    BufferedReader reader = request.getReader();
+		    try {
+		        String line;
+		        while ((line = reader.readLine()) != null) {
+		            sb.append(line).append('\n');
+		        }
+		    } finally {
+		        reader.close();
+		    }
+		    
+		    String[] requestQuery = sb.toString().split("&");
+		    
+		    int accountHolderId 		= Integer.parseInt((requestQuery[0].split("="))[1]);
+		    int accountRoutingNumber 	= Integer.parseInt((requestQuery[1].split("="))[1]);
+		    
+			account.setHolderId(accountHolderId);
+			account.setRoutingNumber(accountRoutingNumber);
 
 			account = accountDao.readAccount(account);
 			
@@ -85,13 +91,6 @@ public class UpdateBookingHistory extends HttpServlet {
 			
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

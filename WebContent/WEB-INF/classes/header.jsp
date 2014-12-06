@@ -4,6 +4,11 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
+
+
+
+
 <% PageUtilities pg = new PageUtilities(request); %>
 <body>
 	<div class="container">

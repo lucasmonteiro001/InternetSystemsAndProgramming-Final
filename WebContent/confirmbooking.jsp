@@ -3,6 +3,13 @@
 	<% response.sendRedirect(response.encodeURL("flightsearchquery.jsp")); %>
 </c:if>
 
+<c:forEach var="cookieVal" items="${cookie}">
+	<c:set var="cookiename" value="${cookieVal.key}"/>
+	<c:if test="${cookiename == 'JSESSIONID'}">
+		<c:set var="jsessionid" value="${cookieVal.value.value}"></c:set>
+	</c:if>
+</c:forEach>
+
 <jsp:include page="WEB-INF/classes/header.jsp"/>
 
 <h3>Confirmation</h3>
@@ -115,20 +122,19 @@
 		var accountRoutingNumber 	= $("#accountRoutingNumber").val();
 		var totalCost				= "" + ${totalCost};
 			
-		var jsonDataObject = new Object();
-		jsonDataObject.accountHolderId 		= accountHolderId;
-		jsonDataObject.accountRoutingNumber = accountRoutingNumber;
-		jsonDataObject.totalCost			= totalCost;
+		var accData = new Object();
+		accData.accountHolderId 		= accountHolderId;
+		accData.accountRoutingNumber 	= accountRoutingNumber;
+		accData.totalCost				= totalCost;
 		
-		var jsonData = JSON.stringify(jsonDataObject);
+		//var jsonData = JSON.stringify(accData);
 		
-		var toUrl = "/Team15-HW3-Banking/Bank1;jsessionid=";
-		var toBank = toUrl.concat('${pageContext.session.id}');
+		var toUrl 	= "/Team15-HW3-Banking/Bank1;jsessionid=";
+		var toBank 	= toUrl.concat('${pageContext.session.id}');
 		
 		$.ajax({ url : toBank,
-			type : "GET",
-			data : {action:"export",json:jsonData},
-			contentType: 'application/json',
+			type : "POST",
+			data : accData,
 			cache: false,
 			success: function(data) {
 				if (data.success == "true") { // If success == true
@@ -137,7 +143,7 @@
 					$(".form-pass-details").show();
 					$(".trans-conf").show();
 					$(".trans-conf").fadeOut(4000);
-					update_history_function(jsonData);
+					update_history_function(accData);
 					//On Success: Show Success/Failure message and a form for the user to
 					//enter passenger details (Name, Age, Sex, etc...), Print Ticket button. Also calls update_history_function.
 				}
@@ -155,15 +161,14 @@
 		event.preventDefault();
 	};
 	
-	function update_history_function(jsonData) {
+	function update_history_function(accData) {
 		
-		var toUrl = "UpdateBookingHistory;jsessionid=";
-		var toHistory= toUrl.concat('${pageContext.session.id}');
+		var toUrl 		= "UpdateBookingHistory;jsessionid=";
+		var toHistory	= toUrl.concat('${jsessionid}');
 
 		$.ajax({ url : toHistory,
-			type : "GET",
-			data : {action:"export",json:jsonData},
-			contentType: 'application/json',
+			type : "POST",
+			data : accData,
 			cache: false,
 			success: function(data) {
 				if (data.success == "true") { // If success == true
