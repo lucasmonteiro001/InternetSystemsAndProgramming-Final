@@ -53,7 +53,7 @@ response.setContentType("application/json");
 		    try {
 		        String line;
 		        while ((line = reader.readLine()) != null) {
-		            sb.append(line).append('\n');
+		            sb.append(line);
 		        }
 		    } finally {
 		        reader.close();
@@ -63,9 +63,11 @@ response.setContentType("application/json");
 		    
 		    int accountHolderId 		= Integer.parseInt((requestQuery[0].split("="))[1]);
 		    int accountRoutingNumber 	= Integer.parseInt((requestQuery[1].split("="))[1]);
+		    int cvc					 	= Integer.parseInt((requestQuery[3].split("="))[1]);
 		    
 			account.setHolderId(accountHolderId);
 			account.setRoutingNumber(accountRoutingNumber);
+			account.setCvc(cvc);
 
 			account = accountDao.readAccount(account);
 			

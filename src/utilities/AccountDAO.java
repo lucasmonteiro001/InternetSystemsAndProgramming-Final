@@ -28,10 +28,11 @@ public class AccountDAO {
 
 		param.add(account.getHolderId());
 		param.add(account.getRoutingNumber());
+		param.add(account.getCvc());
 
 		ResultSet rs1 = jdbc
 				.queryDB(
-						"SELECT * FROM account WHERE account.holder_id =? AND account.routing_number =?;",
+						"SELECT * FROM account WHERE account.holder_id =? AND account.routing_number =? AND account.cvc=?;",
 						param);
 
 		try {
@@ -63,10 +64,11 @@ public class AccountDAO {
 		param.add(account.getHolderId());
 		param.add(account.getRoutingNumber());
 		param.add(account.getBalance());
+		param.add(account.getCvc());
 		try {
 			ResultSet rs1 = jdbc
 					.insertDB(
-							"INSERT INTO account (holder_id, routing_number, balance) VALUES (?, ?, ?);",
+							"INSERT INTO account (holder_id, routing_number, balance, cvc) VALUES (?, ?, ?, ?);",
 							param);
 
 			jdbc.conn.close();
@@ -104,9 +106,10 @@ public class AccountDAO {
 		param.add(account.getBalance());
 		param.add(account.getHolderId());
 		param.add(account.getRoutingNumber());
+		param.add(account.getCvc());
 		try {
 			jdbc.insertDB(
-					"UPDATE account SET account.balance = ? WHERE account.holder_id = ? AND account.routing_number =?;",
+					"UPDATE account SET account.balance = ? WHERE account.holder_id = ? AND account.routing_number =? AND account.cvc =?;",
 					param);
 			jdbc.conn.close();
 		} catch (SQLException e) {

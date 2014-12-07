@@ -10,6 +10,7 @@ public class Account {
 	private int id;
 	private int holderId;
 	private int routingNumber;
+	private int cvc;
 	private double balance;
 	
 	
@@ -50,6 +51,16 @@ public class Account {
 
 	public void setBalance(double balance) {
 		this.balance = balance;
+	}
+	
+
+	public int getCvc() {
+		return cvc;
+	}
+
+
+	public void setCvc(int cvc) {
+		this.cvc = cvc;
 	}
 
 
