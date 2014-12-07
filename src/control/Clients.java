@@ -51,21 +51,19 @@ public class Clients {
 		}
 	}
 	public boolean createClient (Client client) {
-		if (createUser (client.getUser()) && createOrganization (client.getOrganization()) ) {
+		if (createUser (client.getUser()) ) {
+			createOrganization(client.getOrganization());
 			clientDAO.addClient(client);
 			return true;
 		}	
 		return false;	
 	}
-	public boolean createOrganization(Organization organization) {
+	public void createOrganization(Organization organization) {
 		organizationDataAccessObject = new OrganizationDAO();
-		if (organizationDataAccessObject.readOrganization(organization) == null) {
+		Organization org = organizationDataAccessObject.readOrganization(organization);
+		if (org == null) {
 			organizationDataAccessObject.addOrganization(organization);
-			return true;
-		} else {
-
-			return false;
-		}
+		} 
 	}
 
 	public User getUser() {

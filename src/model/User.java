@@ -32,8 +32,9 @@ public class User {
 		this.password = password;
 	}
 
-	public User(String email, String password, Date dateOfBirth) {
+	public User(String name, String email, String password, Date dateOfBirth) {
 		super();
+		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.dateOfBirth = dateOfBirth;

@@ -64,14 +64,16 @@ public class UserDAO {
 		ArrayList<Object> param = new ArrayList<Object>();
 		param.add(user.getEmail());
 		param.add(user.getPassword());
+		
 		java.text.SimpleDateFormat sdf = 
 			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 			String dateBirth = sdf.format(user.getDateOfBirth());
 		param.add(dateBirth);
+		param.add(user.getName());
 		try {
 			ResultSet rs1 = jdbc.insertDB(
-					"INSERT INTO user (email, password, date_of_birth) VALUES (?, ?, ?);",
+					"INSERT INTO user (email, password, date_of_birth, name) VALUES (?, ?, ?, ?);",
 					param);
 
 			jdbc.conn.close();

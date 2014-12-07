@@ -51,11 +51,18 @@ public class Registration extends HttpServlet {
 		Clients us = new Clients();
 		
 		CharacterEscapingHelper csh = new CharacterEscapingHelper();
-
-		user = new User(csh.forHTML(request.getParameter("email").toString()),
-				csh.forHTML(request.getParameter("password").toString()), new Date(csh.forHTML(request.getParameter("dateOfBirth").toString())));
-		organization = new Organization (csh.forHTML(request.getParameter("organizationName")).toString(),
+		
+		user = new User(csh.forHTML(request.getParameter("name").toString()), 
+				csh.forHTML(request.getParameter("email").toString()),
+				csh.forHTML(request.getParameter("password").toString()), 
+				new Date(csh.forHTML(request.getParameter("dateOfBirth").toString())));
+		if (!csh.forHTML(request.getParameter("organizationName")).toString().equals("") 
+				&& !csh.forHTML(request.getParameter("organizationAddress")).toString().equals(""))
+			organization = new Organization (csh.forHTML(request.getParameter("organizationName")).toString(),
 						csh.forHTML(request.getParameter("organizationAddress").toString()));
+		else 
+			organization = new Organization ("N/A", "N/A");
+		
 		client = new Client (user, organization);
 		
 		if (us.createClient(client) == true) {
