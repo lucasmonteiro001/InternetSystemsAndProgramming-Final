@@ -9,7 +9,7 @@
 <div class="well well-sm span4">	
 	<form class="form-horizontal form-group-sm" role="form" name="registration" action="Registration" method="post" style="display:block" onsubmit="return validate()">
 		<div class="form-group">
-			<label class="col-sm-2 control-label" for="email">Email</label>
+			<label class="col-sm-2 control-label" for="name">Name</label>
 			<div class="col-sm-10">
 				<input type="name" class="form-group" id="name" placeholder="Name" name="name">
 			</div>
