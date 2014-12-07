@@ -19,6 +19,7 @@ public class Clients {
 	private UserDAO userDataAccessObject = null;
 	private OrganizationDAO organizationDataAccessObject = null;
 	private ClientDAO clientDAO = null;
+	private Organization organization;
 	public Clients() {
 		user = new User();
 		userDataAccessObject = new UserDAO();
@@ -65,7 +66,7 @@ public class Clients {
 			organizationDataAccessObject.addOrganization(organization);
 		} 
 	}
-
+	
 	public User getUser() {
 		return user;
 	}
@@ -75,11 +76,26 @@ public class Clients {
 	}
 	public boolean userExists (User user) {
 		User u = userDataAccessObject.readUser(user);
-		if (u != null) {
-			setUser(u);
+		Client client = clientDAO.readClient (u);
+		if (client != null) {
+			setClient (client);
+			setUser(client.getUser());
+			setOrganization (client.getOrganization());
 			return true;
 		}
 		return false;
+	}
+
+	private void setClient(Client client) {
+		this.client = client;
+		
+	}
+	public Client getClient () {
+		return client;
+	}
+	private void setOrganization(Organization organization) {
+		this.organization = organization;
+		
 	}
 
 	

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.BookingHistoryModel;
+import model.Client;
 import model.User;
 import utilities.BookingHistoryDAO;
 import utilities.CharacterEscapingHelper;
@@ -56,7 +57,7 @@ public class BookingHistory extends HttpServlet {
 
 			HttpSession session = request.getSession();
 
-			User user = (User) session.getAttribute("user");
+			Client client = (Client) session.getAttribute("client");
 
 			BookingHistoryDAO dao = new BookingHistoryDAO();
 
@@ -66,10 +67,10 @@ public class BookingHistory extends HttpServlet {
 					int startPageIndex		= Integer.parseInt(csh.forHTML(request.getParameter("jtStartIndex")));
 					int numRecordsPerPage	= Integer.parseInt(csh.forHTML(request.getParameter("jtPageSize")));
 					       
-					ArrayList<BookingHistoryModel> all = dao .getBookingHistory(user, startPageIndex, numRecordsPerPage);
+					ArrayList<BookingHistoryModel> all = dao .getBookingHistory(client.getUser(), startPageIndex, numRecordsPerPage);
 					
 					//Get Total Record Count for Pagination
-					int bookingListCount = dao.getBookingHistoryCount(user);
+					int bookingListCount = dao.getBookingHistoryCount(client.getUser());
 
 					Gson gson = new Gson();
 
@@ -127,9 +128,9 @@ public class BookingHistory extends HttpServlet {
 
 		JsonObject booking = null;
 
-		User user = (User) session.getAttribute("user");
+		Client client = (Client) session.getAttribute("client");
 
-		booking = bHDAO.getBookingHistoryJson(user);
+		booking = bHDAO.getBookingHistoryJson(client.getUser());
 
 		return booking;
 	}

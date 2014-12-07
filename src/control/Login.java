@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Client;
+import model.Organization;
 import utilities.CharacterEscapingHelper;
 import model.User;
 
@@ -61,16 +63,20 @@ public class Login extends HttpServlet {
 		CharacterEscapingHelper csh = new CharacterEscapingHelper();
 		
 		Clients users = new Clients();
-		User usr = new User();
+		Client client = new Client ();		
+		client.setUser (new User());
+		client.getUser().setEmail(csh.forHTML((String) request.getParameter(EMAIL_PARAMETER)));
+		client.getUser().setPassword(csh.forHTML((String) request.getParameter(PASSWORD_PARAMETER)));
 		
-		usr.setEmail(csh.forHTML((String) request.getParameter(EMAIL_PARAMETER)));
-		usr.setPassword(csh.forHTML((String) request.getParameter(PASSWORD_PARAMETER)));
-		
-		if (users.userExists(usr) == true) {
-			String hashed = "" + usr.getPassword().hashCode();
+		if (users.userExists(client.getUser()) == true) {
+			String hashed = "" + client.getUser().getPassword().hashCode();
 				if (hashed.equals(users.getUser().getPassword())) {
-					usr = users.getUser();
-					session.setAttribute("user", usr);
+					client = users.getClient();
+					client.setUser(users.getUser());
+					
+					session.setAttribute("client", client);
+					session.setAttribute("user", client.getUser());
+					session.setAttribute("organization", client.getOrganization());
 					String originalURL = "flightsearchquery.jsp";
 					String encodedURL = response.encodeURL(originalURL);
 					response.sendRedirect(encodedURL);

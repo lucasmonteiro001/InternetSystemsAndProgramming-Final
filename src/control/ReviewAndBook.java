@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Book;
+import model.Client;
 import model.Flight;
 import model.User;
 
@@ -62,7 +63,7 @@ public class ReviewAndBook extends HttpServlet {
 		JsonHelper js 		= new JsonHelper();
 		session 			= request.getSession();
 		Book book 			= new Book ();
-		User user 			= (User) session.getAttribute("user");
+		Client client 			= (Client) session.getAttribute("client");
 		double totalCost 	= 0;
 		double cost			= 0;
 		shoppingCart = new ArrayList <Book> ();
@@ -89,7 +90,7 @@ public class ReviewAndBook extends HttpServlet {
 			cost = Integer.parseInt(numberOfSeats)*TX_FIRST_CLASS_SEAT;
 		
 		flight = (Flight) session.getAttribute("flightBean");
-		book.setUserId(user.getId());
+		book.setUserId(client.getUser().getId());
 		book.setNumberOfSeats(Integer.parseInt(numberOfSeats));
 		book.setFlightIds(flight.getId());
 		book.setTotalCost(cost);

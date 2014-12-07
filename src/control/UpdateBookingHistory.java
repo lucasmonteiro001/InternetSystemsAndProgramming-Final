@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Account;
 import model.Book;
-import model.User;
+import model.Client;
 import utilities.AccountDAO;
 import utilities.BookingDAO;
 import utilities.JsonHelper;
@@ -40,7 +40,7 @@ response.setContentType("application/json");
 		
 		
 		HttpSession session 	= request.getSession();
-		User user 				= (User) session.getAttribute("user");
+		Client client 				= (Client) session.getAttribute("client");
 		
 		BookingDAO bookingDao	= new BookingDAO();
 		JsonHelper js 			= new JsonHelper();
@@ -74,7 +74,7 @@ response.setContentType("application/json");
 			
 			for (Book booking : shoppingCart) {
 				booking.setAccountId(account.getId());
-				booking.setUserId(user.getId());
+				booking.setUserId(client.getUser().getId());
 				bookingDao.addBooking(booking);
 			}
 			

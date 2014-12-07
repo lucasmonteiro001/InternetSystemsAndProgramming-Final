@@ -24,7 +24,7 @@
 					</c:if>
 				</div>
 
-				<c:if test="${not empty sessionScope.user}">
+				<c:if test="${not empty sessionScope.client}">
 				<div class="collapse navbar-collapse"
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
@@ -69,7 +69,7 @@
 						<li class="divider-vertical"></li>
 								
 						<li><a href='<c:url value="Logout"></c:url>'><span
-								class="glyphicon glyphicon-off black">&nbsp;</span> ${user.email} </a></li>
+								class="glyphicon glyphicon-off black">&nbsp;</span> ${client.user.name} - ${client.organization.name}</a></li>
 						<% } %>
 						
 					</ul>
