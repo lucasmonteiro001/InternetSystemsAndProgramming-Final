@@ -3,12 +3,17 @@
 	<% response.sendRedirect(response.encodeURL("flightsearchquery.jsp")); %>
 </c:if>
 
-<c:forEach var="cookieVal" items="${cookie}">
+<c:if test="${empty header.cookie}">
+	<c:set var="jsessionid" value="${pageContext.session.id}"></c:set>
+</c:if>
+<c:if test="${not empty header.cookie}">
+	<c:forEach var="cookieVal" items="${cookie}">
 	<c:set var="cookiename" value="${cookieVal.key}"/>
 	<c:if test="${cookiename == 'JSESSIONID'}">
 		<c:set var="jsessionid" value="${cookieVal.value.value}"></c:set>
 	</c:if>
 </c:forEach>
+</c:if>
 
 <jsp:include page="WEB-INF/classes/header.jsp"/>
 

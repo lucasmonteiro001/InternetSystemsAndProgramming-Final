@@ -11,7 +11,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="name">Name</label>
 			<div class="col-sm-10">
-				<input type="name" class="form-group" id="name" placeholder="Name" name="name">
+				<input type="name" class="form-group" id="name" placeholder="Name" name="name" required>
 			</div>
 		</div>
 		<div class="form-group">
