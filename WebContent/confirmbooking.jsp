@@ -52,13 +52,19 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="accountHolderId">Account holder id</label>
 				<div class="col-sm-2">
-					<input type="textfield" class="form-group" id="accountHolderId" placeholder="Account holder id" name="accountHolderId">
+					<input type="number" class="form-group" id="accountHolderId" placeholder="Account holder id" name="accountHolderId">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="routNumber">Routing number</label>
 				<div class="col-sm-10">
-					<input type="textfield" class="form-group" id="accountRoutingNumber" placeholder="Routing number" name="accountRoutingNumber" data-mask="0000000000">
+					<input type="number" class="form-group" id="accountRoutingNumber" placeholder="Routing number" name="accountRoutingNumber" data-mask="0000000000">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="cvc">Card Security Code (CVC)</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-group" id="cvc" placeholder="CVC" name="cvc">
 				</div>
 			</div>
 			<input class="col-sm-offset-2 btn btn-primary btn-sm" type="submit" value="Submit">
@@ -121,13 +127,13 @@
 		var accountHolderId 		= $("#accountHolderId").val();
 		var accountRoutingNumber 	= $("#accountRoutingNumber").val();
 		var totalCost				= "" + ${totalCost};
+		var cvc						= $("#cvc").val();
 			
 		var accData = new Object();
 		accData.accountHolderId 		= accountHolderId;
 		accData.accountRoutingNumber 	= accountRoutingNumber;
 		accData.totalCost				= totalCost;
-		
-		//var jsonData = JSON.stringify(accData);
+		accData.cvc						= cvc;
 		
 		var toUrl 	= "/Team15-HW3-Banking/Bank1;jsessionid=";
 		var toBank 	= toUrl.concat('${pageContext.session.id}');
