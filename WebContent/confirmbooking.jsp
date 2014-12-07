@@ -1,19 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${empty shoppingCart}">
 	<% response.sendRedirect(response.encodeURL("flightsearchquery.jsp")); %>
 </c:if>
 
-<c:if test="${empty header.cookie}">
-	<c:set var="jsessionid" value="${pageContext.session.id}"></c:set>
-</c:if>
-<c:if test="${not empty header.cookie}">
-	<c:forEach var="cookieVal" items="${cookie}">
+<c:forEach var="cookieVal" items="${cookie}">
 	<c:set var="cookiename" value="${cookieVal.key}"/>
 	<c:if test="${cookiename == 'JSESSIONID'}">
 		<c:set var="jsessionid" value="${cookieVal.value.value}"></c:set>
 	</c:if>
 </c:forEach>
-</c:if>
 
 <jsp:include page="WEB-INF/classes/header.jsp"/>
 
@@ -33,13 +29,13 @@
 					<tr>
 						<td><c:out value="${booking.dateOfBooking}"/></td>
 						<td><c:out value="${booking.flightIds}"/></td>
-						<td><c:out value="${booking.totalCost}"/></td>
+						<td><fmt:formatNumber value="${booking.totalCost}"   type="currency"/></td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td></td>
 					<td></td>
-					<td><strong><c:out value="${totalCost}"/></strong></td>
+					<td><strong></strong><fmt:formatNumber value="${totalCost}"   type="currency"/></strong></td>
 				</tr>
 		</c:if>
 		<c:if test="${empty shoppingCart}">

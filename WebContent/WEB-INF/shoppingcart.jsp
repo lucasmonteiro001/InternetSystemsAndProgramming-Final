@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../WEB-INF/classes/header.jsp" />
 
 
@@ -23,12 +23,12 @@
 					<tr>
 						<td><c:out value="${booking.flightIds}"/></td>
 						<td><c:out value="${booking.numberOfSeats}"/></td>
-						<td><c:out value="${booking.totalCost}"/></td>
+						<td><fmt:formatNumber value="${booking.totalCost}"   type="currency"/></td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td><b>Total</b></td>
-					<td><b><c:out value="${totalCost}"/></b></td>
+					<td><fmt:formatNumber value="${totalCost}"   type="currency"/></td>
 					<td><a href='<c:url value="confirmbooking.jsp"></c:url>'><input type="button"
 							class="btn btn-primary btn-sm" name="send"
 							value="Proceed to Checkout" align="right"></a></td>
