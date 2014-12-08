@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Model class for Organization, containing name and address.
+ * 
+ * @author Mateus
+ *
+ */
+
 public class Organization {
 	private int id;
 	private String name;

@@ -28,7 +28,8 @@ public class Clients {
 	}
 
 	/**
-	 * This method receives an user object containing its username and its password. Then, the method transforms into a hashedPassword and save it, in case that is not a repeated user.
+	 * This method receives an user object containing its username and its password. Then, the method transforms into a hashedPassword and save it, in case that is not a repeated Client.
+	 * 
 	 * @param user information about the new user
 	 * @return bool_val If the user is created returns true. Otherwise, returns false.
 	 */
@@ -51,6 +52,12 @@ public class Clients {
 			return false;
 		}
 	}
+	/**
+	 * This method receives an object containing  all data about Client.
+	 *  
+	 * @param user information about the new user
+	 * @return bool_val If the user is created returns true. Otherwise, returns false.
+	 */
 	public boolean createClient (Client client) {
 		if (createUser (client.getUser()) ) {
 			createOrganization(client.getOrganization());
@@ -59,6 +66,13 @@ public class Clients {
 		}	
 		return false;	
 	}
+	
+	/**
+	 * This method receives an object containing  all data about Organization.
+	 *  
+	 * @param user information about the new user
+	 * 
+	 */
 	public void createOrganization(Organization organization) {
 		organizationDataAccessObject = new OrganizationDAO();
 		Organization org = organizationDataAccessObject.readOrganization(organization);
@@ -74,6 +88,12 @@ public class Clients {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	/**
+	 * This method verifies if the user exists.
+	 *  
+	 * @param user information about the new user
+	 * @return bool_val If the user exists returns false. Otherwise, returns true.
+	 */
 	public boolean userExists (User user) {
 		User u = userDataAccessObject.readUser(user);
 		Client client = clientDAO.readClient (u);

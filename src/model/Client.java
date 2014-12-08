@@ -1,4 +1,10 @@
 package model;
+/**
+ * Model class for Client, containing User and Password.
+ * 
+ * @author Mateus
+ *
+ */
 
 public class Client {
 	private User user;

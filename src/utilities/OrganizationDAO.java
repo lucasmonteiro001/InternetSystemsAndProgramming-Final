@@ -13,6 +13,11 @@ public class OrganizationDAO {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * This method adds the organization passed as parameter of the database.
+	 * @see JDBCHelper 
+	 * @param organization
+	 */
 	public void addOrganization(Organization organization) {
 		JDBCHelper jdbc = new JDBCHelper();
 		ArrayList<Object> param = new ArrayList<Object>();
@@ -33,7 +38,11 @@ public class OrganizationDAO {
 		}
 
 	}
-
+	/**
+	 * This method reads the organization passed as parameter of the database.
+	 * @see JDBCHelper 
+	 * @param organization
+	 */
 	public Organization readOrganization(Organization organization) {
 		JDBCHelper jdbc = new JDBCHelper();
 		ArrayList<Object> param = new ArrayList<Object>();
